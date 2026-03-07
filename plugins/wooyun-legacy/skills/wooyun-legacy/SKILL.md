@@ -83,6 +83,8 @@ description: >-
 
 使用下面的参考文件形成特定领域的假设。每个领域文件包含详细的攻击模式矩阵、测试清单和防御模式，这些都源自数千个真实的 WooYun 案例。
 
+**第一层：领域参考（方法论 + 攻击模式矩阵）** — 优先加载
+
 | 领域 | 参考文件 | 案例数 |
 |------|---------|-------|
 | 认证绕过、凭证缺陷 | [authentication-domain.md](references/authentication-domain.md) | 8,846 |
@@ -91,6 +93,41 @@ description: >-
 | 个人信息泄露、凭证泄露、调试信息 | [information-domain.md](references/information-domain.md) | 6,446 |
 | 状态机滥用、竞态条件、流程绕过 | [logic-flow-domain.md](references/logic-flow-domain.md) | 1,679 |
 | 配置不当、默认设置、加固缺陷 | [configuration-domain.md](references/configuration-domain.md) | 1,796 |
+
+**第二层：深度分析手册（技术细节 + 根因分析）** — 需要深入某个技术领域时加载
+
+| 技术领域 | 知识文件 | 内容 |
+|---------|---------|------|
+| 命令执行 | [command-execution.md](../../knowledge/command-execution.md) | 系统命令注入、代码注入、表达式注入的完整攻击链 |
+| 文件遍历 | [file-traversal.md](../../knowledge/file-traversal.md) | 路径穿越、任意文件读取/下载的绕过技术 |
+| 文件上传 | [file-upload.md](../../knowledge/file-upload.md) | 上传绕过（类型、后缀、内容检测）的 Payload 矩阵 |
+| 信息泄露 | [info-disclosure.md](../../knowledge/info-disclosure.md) | 敏感信息暴露路径、调试接口、配置文件泄露 |
+| 逻辑缺陷 | [logic-flaws.md](../../knowledge/logic-flaws.md) | 密码重置、支付绕过、验证码绕过的根因矩阵 |
+| SQL 注入 | [sql-injection.md](../../knowledge/sql-injection.md) | 注入类型分类、WAF 绕过、盲注技巧 |
+| 未授权访问 | [unauthorized-access.md](../../knowledge/unauthorized-access.md) | 未授权接口发现、权限校验缺失模式 |
+| XSS | [xss.md](../../knowledge/xss.md) | 存储型/反射型/DOM XSS 的输入点和绕过 |
+
+**第三层：漏洞案例库（真实案例标题 + 高频 Payload）** — 需要引用具体案例或 Payload 模式时加载
+
+| 漏洞类型 | 案例文件 | 用途 |
+|---------|---------|------|
+| SQL 注入 | [sql-injection.md](../../categories/sql-injection.md) | 15 个典型案例 + 高频注入 Payload |
+| 命令执行 | [command-execution.md](../../categories/command-execution.md) | 15 个典型案例 + 命令执行 Payload |
+| 未授权访问 | [unauthorized-access.md](../../categories/unauthorized-access.md) | 15 个典型案例 + 越权模式 |
+| 弱口令 | [weak-password.md](../../categories/weak-password.md) | 15 个典型案例 + 高频弱口令 |
+| 信息泄露 | [info-disclosure.md](../../categories/info-disclosure.md) | 15 个典型案例 + 泄露路径 |
+| XSS | [xss.md](../../categories/xss.md) | 9 个典型案例 + XSS Payload |
+| 配置不当 | [misconfig.md](../../categories/misconfig.md) | 15 个典型案例 + 错误配置模式 |
+| 逻辑缺陷 | [logic-flaws.md](../../categories/logic-flaws.md) | 15 个典型案例 + 逻辑绕过 |
+| 文件上传 | [file-upload.md](../../categories/file-upload.md) | 11 个典型案例 + 上传绕过 Payload |
+| SSRF | [ssrf.md](../../categories/ssrf.md) | SSRF 攻击模式 |
+| CSRF | [csrf.md](../../categories/csrf.md) | CSRF 利用模式 |
+| 文件遍历 | [file-traversal.md](../../categories/file-traversal.md) | 5 个典型案例 + 遍历 Payload |
+| RCE | [rce.md](../../categories/rce.md) | 3 个典型案例 + RCE 链 |
+| XXE | [xxe.md](../../categories/xxe.md) | XXE 注入模式 |
+| 其他 | [other.md](../../categories/other.md) | 13 个典型案例 |
+
+> **渐进加载规则：** 先读第一层（领域参考）确定测试方向，再按需读第二层（深度分析）获取技术细节，最后在需要引用具体案例或 Payload 时才读第三层（案例库）。不要一次性加载所有文件。
 
 **对每个领域，使用以下结构形成假设：**
 

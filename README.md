@@ -444,6 +444,21 @@ WooYun 有大量类似案例：通过顺序递增的文件 ID 或证件编号遍
 
 ## 知识覆盖
 
+### 三层渐进式知识体系
+
+插件采用三层渐进加载架构，避免一次性加载所有文件，按需读取：
+
+```
+第一层：领域参考（references/）      ← 触发时优先加载
+  6 个领域文件 · 方法论 + 攻击模式矩阵 + 测试清单
+
+第二层：深度分析（knowledge/）       ← 需要技术细节时加载
+  8 个技术文件 · 根因分析 + Payload 矩阵 + WAF 绕过
+
+第三层：案例库（categories/）        ← 需要引用案例或 Payload 时加载
+  15 个分类文件 · 真实案例标题 + 高频参数 + 攻击模式分布
+```
+
 ### 6 大领域 · 33 类漏洞
 
 | 领域 | 案例数 | 代表漏洞类别 |
@@ -548,21 +563,30 @@ wooyun-legacy/                              # Marketplace 仓库
 │   └── wooyun-legacy/                      # 插件目录（安装时被复制到缓存）
 │       ├── .claude-plugin/
 │       │   └── plugin.json                 # 插件清单
-│       └── skills/
-│           └── wooyun-legacy/
-│               ├── SKILL.md                # 主技能文件（方法论入口）
-│               └── references/             # 6 大领域详细参考
-│                   ├── authentication-domain.md  # 认证绕过（8,846 案例）
-│                   ├── authorization-domain.md   # 越权访问（6,838 案例）
-│                   ├── financial-domain.md       # 金融安全（2,919 案例）
-│                   ├── information-domain.md     # 信息泄露（6,446 案例）
-│                   ├── logic-flow-domain.md      # 逻辑缺陷（1,679 案例）
-│                   └── configuration-domain.md   # 配置不当（1,796 案例）
+│       ├── skills/
+│       │   └── wooyun-legacy/
+│       │       ├── SKILL.md                # 主技能 — 方法论入口 + 三层引用索引
+│       │       └── references/             # 第一层：6 大领域参考
+│       │           ├── authentication-domain.md
+│       │           ├── authorization-domain.md
+│       │           ├── financial-domain.md
+│       │           ├── information-domain.md
+│       │           ├── logic-flow-domain.md
+│       │           └── configuration-domain.md
+│       ├── knowledge/                      # 第二层：8 个深度分析手册
+│       │   ├── command-execution.md        #   命令注入完整攻击链
+│       │   ├── sql-injection.md            #   SQL 注入 + WAF 绕过
+│       │   ├── file-upload.md              #   上传绕过 Payload 矩阵
+│       │   ├── xss.md                      #   XSS 输入点和绕过
+│       │   └── ...                         #   (共 8 个技术文件)
+│       └── categories/                     # 第三层：15 个漏洞案例索引
+│           ├── sql-injection.md            #   典型案例 + 高频 Payload
+│           ├── unauthorized-access.md      #   越权案例 + 攻击模式
+│           ├── weak-password.md            #   弱口令案例 + 高频密码
+│           └── ...                         #   (共 15 个分类文件)
+├── categories/                             # 原始漏洞案例库（完整版，71MB）
+├── knowledge/                              # 原始知识方法论（完整版）
 ├── evals/                                  # 评估基准数据
-│   ├── evals.json                          #   12 组测试用例定义
-│   └── iteration-1/                        #   完整评测结果
-├── categories/                             # 原始漏洞分类案例库
-├── knowledge/                              # 精炼知识方法论
 ├── examples/                               # 行业渗透实战示例
 ├── LICENSE                                 # CC BY-NC-SA 4.0
 └── README.md
