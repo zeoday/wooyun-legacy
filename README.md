@@ -16,7 +16,24 @@
 
 ## 安装
 
-### 方式一：通过 Marketplace 安装（推荐）
+提供两种安装方式：**轻量安装**（Marketplace，推荐）和**全量安装**（克隆完整仓库）。
+
+### 两种模式的区别
+
+| | 轻量安装（Marketplace） | 全量安装（git clone） |
+|---|---|---|
+| **安装体积** | ~432KB | ~71MB |
+| **第一层：领域参考** (references/) | 6 个方法论文件 | 6 个方法论文件 |
+| **第二层：深度分析** (knowledge/) | 8 个技术手册（完整） | 8 个技术手册（完整） |
+| **第三层：漏洞案例库** (categories/) | 15 个浓缩索引（60KB） | 15 个完整案例库（71MB 原始数据） |
+| **浓缩 vs 完整** | 每个分类保留前 15 条案例标题 + 高频参数 + 攻击模式分布 + 10 条 Payload 片段 | 全部 22,132 条案例的完整标题、分类、严重性、公司信息 |
+| **行业渗透示例** (examples/) | 不含 | 运营商渗透、银行渗透等实战方法论 |
+| **评估基准** (evals/) | 不含 | 12 组对照评测原始数据 |
+| **适合谁** | 日常安全测试、报告撰写、SRC 赏金 | 需要完整案例检索、深度数据分析、二次开发 |
+
+> **结论：** 对大多数用户来说，轻量安装已经覆盖了插件的全部核心能力（方法论 + 统计数据 + 案例引用 + 优先级排序）。全量安装适合需要检索完整案例库或基于原始数据做自定义分析的场景。
+
+### 方式一：轻量安装（Marketplace，推荐）
 
 ```bash
 # 1. 添加 Marketplace
@@ -35,14 +52,23 @@ claude plugin install wooyun-legacy@tanweai-security
 
 安装完成后，Claude Code 会在检测到安全相关任务时自动加载此插件。
 
-### 方式二：单次会话加载
+### 方式二：全量安装（完整案例库）
 
-不想持久安装的话，可以克隆后用 `--plugin-dir` 加载插件目录：
+克隆完整仓库，获取 71MB 原始案例数据 + 行业渗透示例 + 评测数据：
 
 ```bash
+# 克隆完整仓库
 git clone https://github.com/tanweai/wooyun-legacy.git
+
+# 方法 A：单次会话加载
 claude --plugin-dir ./wooyun-legacy/plugins/wooyun-legacy
+
+# 方法 B：持久安装到 Claude Code
+# 将 plugins/wooyun-legacy 目录复制到插件缓存
+cp -r ./wooyun-legacy/plugins/wooyun-legacy ~/.claude-personal/plugins/cache/wooyun-legacy
 ```
+
+全量安装后，仓库根目录的 `categories/`、`knowledge/`、`examples/`、`evals/` 可以作为额外参考资料直接阅读或在 Claude Code 中加载使用。
 
 ### 方式三：团队统一配置
 
@@ -77,9 +103,12 @@ claude --plugin-dir ./wooyun-legacy/plugins/wooyun-legacy
 ### 更新与卸载
 
 ```bash
-# 更新 marketplace 和插件
+# 更新 marketplace 和插件（轻量安装）
 claude plugin marketplace update tanweai-security
 claude plugin update wooyun-legacy@tanweai-security
+
+# 更新全量安装
+cd wooyun-legacy && git pull
 
 # 卸载插件
 claude plugin uninstall wooyun-legacy
