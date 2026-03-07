@@ -1,5 +1,7 @@
 # WooYun Legacy
 
+[![Website](https://img.shields.io/badge/Website-wooyun.tanweagent.com-000?style=flat-square)](https://wooyun.tanweagent.com) [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](LICENSE)
+
 > 给 AI 安全报告加上真实案例背书和数据支撑
 
 **WooYun Legacy** 是一个 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 插件，基于 WooYun（2010-2016）收录的 22,132 个业务逻辑漏洞案例，为 Claude 的安全测试输出注入**真实公司案例引用**、**量化统计数据**和**数据驱动的测试优先级排序**。
